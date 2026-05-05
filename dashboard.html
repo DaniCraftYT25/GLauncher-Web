@@ -11,6 +11,49 @@
     <link rel="stylesheet" href="css/styles.css">  
     <link rel="stylesheet" href="css/dashboard-styles.css">
     <link rel="icon" type="image/png" href="images/glauncher logo.png">
+    <style>
+        /* Ajustes de compatibilidad para móviles en el Dashboard */
+        @media (max-width: 992px) {
+            .dashboard-main-content {
+                padding: 10px;
+            }
+
+            .dashboard-container {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .floating-nav {
+                position: sticky;
+                top: 0;
+                width: 100%;
+                z-index: 100;
+                background: var(--secondary-bg-color);
+                padding: 15px;
+                border-radius: 15px;
+                border: 1px solid var(--neon-blue);
+                box-shadow: var(--shadow-blue);
+            }
+
+            .nav-links-section {
+                display: flex;
+                overflow-x: auto;
+                gap: 15px;
+                padding: 10px 5px;
+                scrollbar-width: none; /* Firefox */
+            }
+
+            .nav-links-section::-webkit-scrollbar {
+                display: none; /* Chrome/Safari */
+            }
+
+            .floating-nav-item {
+                flex-shrink: 0;
+                white-space: nowrap;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Spinner de Carga, Notificaciones y Pantalla Offline -->
@@ -295,11 +338,96 @@
         <button id="accept-cookie-btn" class="auth-button-action cookie-accept-btn" style="background-color: var(--neon-green); box-shadow: var(--shadow-green);">Aceptar</button>
     </div>
 
+    <!-- Barra de Navegación Inferior (Solo para Móviles) -->
+    <nav class="bottom-nav">
+        <a href="index.html"><i class="fas fa-home"></i><span>Inicio</span></a>
+        <a href="shop.html"><i class="fa-solid fa-shop"></i><span>Shop</span></a>
+        <a href="noticias.html"><i class="fas fa-newspaper"></i><span>Noticias</span></a>
+        <a href="download.html"><i class="fas fa-download"></i><span>Descargas</span></a>
+        <a href="dashboard.html" class="active"><i class="fas fa-user-circle"></i><span>Tu Perfil</span></a>
+    </nav>
+
     <!-- Librería Lenis para Smooth Scroll -->
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <!-- Librería SkinView3D para Renders Interactivos -->
     <script src="https://unpkg.com/skinview3d@latest/bundles/skinview3d.bundle.js"></script>
     <script src="js/global-script.js" defer></script>
-    <script src="js/dashboard-script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 1. Navegación Principal del Dashboard ---
+            const navItems = document.querySelectorAll('.floating-nav-item');
+            const sections = document.querySelectorAll('.content-section');
+
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    const targetId = item.getAttribute('data-target');
+                    if (!targetId) return;
+                    e.preventDefault();
+
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    item.classList.add('active');
+
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === targetId) section.classList.add('active');
+                    });
+                });
+            });
+
+            // --- 2. Navegación Interna de Ajustes (Fix solicitado) ---
+            const settingsBtns = document.querySelectorAll('.settings-nav-btn');
+            const settingsPanels = document.querySelectorAll('.settings-panel');
+
+            settingsBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const panelId = btn.getAttribute('data-panel');
+
+                    settingsBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    settingsPanels.forEach(panel => {
+                        panel.classList.remove('active');
+                        if (panel.id === panelId) panel.classList.add('active');
+                    });
+                });
+            });
+
+            // --- 3. Vista previa de Cambio de Avatar ---
+            const avatarInput = document.getElementById('avatar-change-file');
+            const settingsPreview = document.getElementById('settings-avatar-preview');
+            const navAvatar = document.getElementById('nav-avatar');
+
+            if (avatarInput) {
+                avatarInput.addEventListener('change', function() {
+                    const file = this.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            settingsPreview.src = e.target.result;
+                            if (navAvatar) navAvatar.src = e.target.result;
+                            if (window.showNotification) window.showNotification('Previsualización de avatar cargada.', 'info');
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+
+            // --- 4. Botones de Acción de Ajustes ---
+            const saveProfileBtn = document.getElementById('save-profile-btn');
+            if (saveProfileBtn) {
+                saveProfileBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (window.showNotification) window.showNotification('¡Perfil actualizado correctamente!', 'success');
+                });
+            }
+
+            const launchBtn = document.getElementById('launch-game-btn');
+            if (launchBtn) {
+                launchBtn.addEventListener('click', () => {
+                    if (window.showNotification) window.showNotification('Iniciando GLauncher... ¡Prepara tus mods!', 'success');
+                });
+            }
+        });
+    </script>
 </body>
 </html>

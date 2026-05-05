@@ -72,32 +72,55 @@
             height: 100%;
             border-radius: 50%;
             border: 5px solid var(--main-bg-color);
-            box-shadow: 0 0 0 5px var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue), inset 0 0 15px rgba(0, 0, 0, 0.5);
             background: conic-gradient(
-                #ff00ff 0deg 60deg,
-                #00ffff 60deg 120deg,
-                #39ff14 120deg 180deg,
-                #ffff00 180deg 240deg,
-                #ff0000 240deg 300deg,
+                from 0deg,
+                var(--neon-pink) 0deg 60deg,
+                var(--neon-blue) 60deg 120deg,
+                var(--neon-green) 120deg 180deg,
+                #ffcc00 180deg 240deg,
+                #ff3333 240deg 300deg,
                 #ffffff 300deg 360deg
             );
-            transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transition: transform 9s cubic-bezier(0.1, 0, 0.1, 1);
             position: relative;
+        }
+
+        /* Tapa central de la ruleta */
+        .wheel::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: var(--main-bg-color);
+            border: 3px solid var(--text-color-light);
+            border-radius: 50%;
+            z-index: 5;
+            box-shadow: 0 0 10px var(--neon-blue);
         }
         
         /* Indicador de la ruleta */
         .wheel-arrow {
             position: absolute;
-            top: -15px;
+            top: -20px;
             left: 50%;
             transform: translateX(-50%);
             width: 0; 
             height: 0; 
             border-left: 15px solid transparent;
             border-right: 15px solid transparent;
-            border-top: 25px solid var(--text-color-light);
+            border-top: 30px solid var(--text-color-light);
             z-index: 10;
-            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 0 10px var(--neon-pink));
+            animation: arrow-bounce 1s infinite alternate;
+        }
+
+        @keyframes arrow-bounce {
+            from { transform: translateX(-50%) translateY(0); }
+            to { transform: translateX(-50%) translateY(5px); }
         }
 
         /* Números dentro de la ruleta */
@@ -106,15 +129,39 @@
             top: 50%;
             left: 50%;
             transform-origin: 0 0;
-            font-weight: bold;
-            color: #000;
-            text-shadow: 0 0 2px rgba(255,255,255,0.8);
-            font-size: 1.1em;
+            font-weight: 900;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+            font-size: 1.3em;
             pointer-events: none;
             user-select: none;
-            /* Centrado y empujado hacia el borde */
             width: 0;
             height: 0;
+        }
+
+        #roulette-result {
+            margin-top: 15px;
+            font-size: 1.4em;
+            font-weight: bold;
+            min-height: 1.5em;
+            transition: all 0.3s;
+            color: var(--neon-blue);
+        }
+
+        #spin-btn:hover:not(:disabled) {
+            background: var(--neon-blue) !important;
+            border-color: var(--neon-blue) !important;
+            color: var(--main-bg-color) !important;
+            box-shadow: var(--shadow-blue);
+            transform: translateY(-2px);
+        }
+
+        .gcoin-balance {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 1px solid var(--neon-green);
+            backdrop-filter: blur(5px);
         }
 
         /* Precios de GCoins mejorados */
@@ -133,7 +180,8 @@
         }
         .gcoin-package:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow-blue);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            border-color: var(--neon-pink);
         }
         .gcoin-package.popular {
             border-color: var(--neon-pink);
@@ -166,7 +214,7 @@
         <div class="shop-header">
             <h2 class="neon-title"><i class="fas fa-store"></i> Tienda de Cosméticos</h2>
             <p class="subtitle-text">Personaliza tu experiencia en GLauncher con ítems exclusivos.</p>
-            <div id="user-gcoin-balance" class="gcoin-balance" style="display: flex; justify-content: center; gap: 10px; font-size: 1.2em; margin-top: 10px;">
+            <div id="user-gcoin-balance" class="gcoin-balance" style="display: inline-flex; justify-content: center; gap: 10px; font-size: 1.2em; margin-top: 10px;">
                 <span>Tu Saldo:</span>
                 <span id="gcoin-amount" class="neon-hover-text" style="color: var(--neon-green); font-weight: bold;">--- <i class="fas fa-coins"></i></span>
             </div>
@@ -246,12 +294,12 @@
                         <div class="wheel-arrow"></div>
                         <div class="wheel" id="roulette-wheel">
                             <!-- Los números se posicionan rotando desde el centro hacia afuera -->
-                            <span class="wheel-number" style="transform: rotate(30deg) translate(70px) rotate(90deg);">100</span>
-                            <span class="wheel-number" style="transform: rotate(90deg) translate(70px) rotate(90deg);">50</span>
-                            <span class="wheel-number" style="transform: rotate(150deg) translate(70px) rotate(90deg);">500</span>
-                            <span class="wheel-number" style="transform: rotate(210deg) translate(70px) rotate(90deg);">0</span>
-                            <span class="wheel-number" style="transform: rotate(270deg) translate(70px) rotate(90deg);">200</span>
-                            <span class="wheel-number" style="transform: rotate(330deg) translate(70px) rotate(90deg);">1K</span>
+                            <span class="wheel-number" style="transform: rotate(30deg) translate(85px) rotate(90deg);">100</span>
+                            <span class="wheel-number" style="transform: rotate(90deg) translate(85px) rotate(90deg);">50</span>
+                            <span class="wheel-number" style="transform: rotate(150deg) translate(85px) rotate(90deg);">500</span>
+                            <span class="wheel-number" style="transform: rotate(210deg) translate(85px) rotate(90deg);">0</span>
+                            <span class="wheel-number" style="transform: rotate(270deg) translate(85px) rotate(90deg);">200</span>
+                            <span class="wheel-number" style="transform: rotate(330deg) translate(85px) rotate(90deg);">1K</span>
                         </div>
                     </div>
                     
@@ -383,33 +431,33 @@
                 spinSound.currentTime = 0;
                 spinSound.play();
 
-                // Calcular giro aleatorio (mínimo 3 vueltas completas + aleatorio)
+                // Calcular giro aleatorio (mínimo 9 vueltas completas para 9 segundos + aleatorio)
                 const randomDegree = Math.floor(Math.random() * 360);
-                const totalSpin = 1080 + randomDegree; 
+                const totalSpin = 3240 + randomDegree; 
                 currentRotation += totalSpin;
 
                 wheel.style.transform = `rotate(${currentRotation}deg)`;
 
-                // Esperar a que termine la animación (4s según CSS)
+                // Esperar a que termine la animación (9s según CSS)
                 setTimeout(() => {
                     spinBtn.disabled = false;
                     
-                    // Calcular premio (simplificado por segmentos de 60 grados)
-                    // El ángulo real es el resto de 360, invertido porque la flecha está arriba
-                    const actualDegree = (currentRotation % 360);
-                    let prize = "";
-                    let amount = 0;
+                    // Calcular premio basado en la posición final (Arrow en el top)
+                    const arrowAngle = (360 - (currentRotation % 360)) % 360;
+                    const segmentIndex = Math.floor(arrowAngle / 60);
                     
-                    // Mapeo aproximado basado en el conic-gradient
-                    // Nota: Esto es visual, la lógica real debería venir del backend para evitar trampas
-                    if (actualDegree < 60) { prize = "¡100 GCoins!"; amount = 100; }
-                    else if (actualDegree < 120) { prize = "¡50 GCoins!"; amount = 50; }
-                    else if (actualDegree < 180) { prize = "¡500 GCoins!"; amount = 500; }
-                    else if (actualDegree < 240) { prize = "Nada :("; amount = 0; }
-                    else if (actualDegree < 300) { prize = "¡200 GCoins!"; amount = 200; }
-                    else { prize = "¡JACKPOT 1000!"; amount = 1000; }
+                    const prizes = [
+                        { name: "¡100 GCoins!", amount: 100, color: "var(--neon-pink)" },
+                        { name: "¡50 GCoins!", amount: 50, color: "var(--neon-blue)" },
+                        { name: "¡500 GCoins!", amount: 500, color: "var(--neon-green)" },
+                        { name: "Nada :(", amount: 0, color: "var(--text-color-dark)" },
+                        { name: "¡200 GCoins!", amount: 200, color: "#ff3333" },
+                        { name: "¡JACKPOT 1000!", amount: 1000, color: "#ffffff" }
+                    ];
 
-                    resultText.textContent = prize;
+                    const prize = prizes[segmentIndex];
+                    resultText.textContent = prize.name;
+                    resultText.style.color = prize.color;
                     
                     // Guardar que ya giró hoy
                     localStorage.setItem('lastRouletteSpin', today);
@@ -417,7 +465,7 @@
                     spinBtn.style.background = "#555";
                     spinBtn.style.borderColor = "#777";
                     
-                    if (prize.includes("GCoins") || prize.includes("JACKPOT")) {
+                    if (prize.amount > 0) {
                         winSound.currentTime = 0;
                         winSound.play();
 
@@ -427,14 +475,12 @@
                             origin: { x: 0.75, y: 0.6 } // Posición relativa a la ruleta (aprox)
                         });
                         
-                        // Animar saldo si ganó algo
-                        if (amount > 0) {
-                            const currentBal = getCurrentBalance();
-                            animateValue(gcoinAmountEl, currentBal, currentBal + amount, 2000);
-                        }
+                        // Animar saldo
+                        const currentBal = getCurrentBalance();
+                        animateValue(gcoinAmountEl, currentBal, currentBal + prize.amount, 2000);
                     }
 
-                }, 4000);
+                }, 9000);
             });
         });
     </script>

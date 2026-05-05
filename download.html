@@ -127,7 +127,7 @@
     <!-- Barra de Navegación Inferior (Solo para Móviles) -->
     <nav class="bottom-nav">
         <a href="index.html" class="active"><i class="fas fa-home"></i><span>Inicio</span></a>
-        <a href="radio.html"><i class="fas fa-broadcast-tower"></i><span>Radio</span></a>
+        <a href="shop.html"><i class="fa-solid fa-shop"></i><span>shop</span></a>
         <a href="noticias.html"><i class="fas fa-newspaper"></i><span>Noticias</span></a>
         <a href="download.html"><i class="fas fa-download"></i><span>Descargas</span></a>
         <a href="dashboard.html"><i class="fas fa-user-circle"></i><span>Perfil</span></a>
@@ -142,6 +142,118 @@
             const tabSound = document.getElementById('tab-switch-sound');
             const hoverSound = document.getElementById('card-hover-sound');
             const reqList = document.querySelector('.req-list');
+
+            // Lógica de animación para botones de descarga
+            const downloadActionButtons = document.querySelectorAll('.download-button:not(.is-disabled)');
+            const downloadPage = document.querySelector('.download-page');
+            const downloadContainer = document.querySelector('.download-container');
+            let stepsView = null;
+
+            // Función para dibujar el icono de Play animado en Canvas
+            function animatePlayIcon() {
+                const canvas = document.getElementById('canvas-play-icon');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                let angle = 0;
+                let rotation = 0;
+                function draw() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    const centerX = canvas.width / 2;
+                    const centerY = canvas.height / 2;
+                    const size = 30 + Math.sin(angle) * 5; // Efecto de pulso
+
+                    // Triángulo neón
+                    ctx.beginPath();
+                    ctx.moveTo(centerX - size/1.5, centerY - size);
+                    ctx.lineTo(centerX + size, centerY);
+                    ctx.lineTo(centerX - size/1.5, centerY + size);
+                    ctx.closePath();
+
+                    ctx.strokeStyle = '#39ff14';
+                    ctx.lineWidth = 3;
+                    ctx.shadowBlur = 15;
+                    ctx.shadowColor = '#39ff14';
+                    ctx.stroke();
+                    
+                    angle += 0.05;
+                    rotation += 0.02;
+                    requestAnimationFrame(draw);
+                }
+                draw();
+            }
+
+            // Función para crear la GUI de pasos dinámicamente
+            function createStepsGUI() {
+                if (stepsView) return; // No duplicar si ya existe
+
+                stepsView = document.createElement('div');
+                stepsView.className = 'download-steps-view';
+                stepsView.innerHTML = `
+                    <div class="steps-header">
+                        <h2 class="neon-title"><i class="fas fa-rocket"></i> ¡TU DESCARGA HA COMENZADO!</h2>
+                        <p class="subtitle-text">Sigue estos sencillos pasos para empezar a jugar en minutos.</p>
+                    </div>
+                    <div class="steps-grid">
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <div class="step-icon-wrapper"><div class="css-file-icon"><i class="fas fa-arrow-down css-file-icon-arrow"></i></div></div>
+                            <h3>Ejecuta el Instalador</h3>
+                            <p class="card-description">Abre el archivo <code>.exe</code> o <code>.zip</code> que acabas de descargar.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <div class="step-icon-wrapper"><div class="css-user-icon"></div></div>
+                            <h3>Inicia Sesión</h3>
+                            <p class="card-description">Usa tus credenciales de GLauncher para sincronizar tus cosméticos y amigos.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <div class="step-icon-wrapper"><canvas id="canvas-play-icon" width="100" height="100"></canvas></div>
+                            <h3>¡Entra al Juego!</h3>
+                            <p class="card-description">Selecciona tu versión favorita, instala los mods y entra al campo de batalla.</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 40px;">
+                        <button id="back-to-downloads" class="auth-button">
+                            <i class="fas fa-arrow-left"></i> Volver a la selección
+                        </button>
+                        <p class="disclaimer-text" style="margin-top: 20px;">
+                            ¿Problemas con la descarga? <a href="#" class="neon-hover-text">Contacta a soporte</a>
+                        </p>
+                    </div>
+                `;
+
+                // Insertar antes del disclaimer final pero después del contenedor principal
+                downloadPage.insertBefore(stepsView, downloadContainer.nextSibling);
+
+                // Asignar evento al botón de volver (ahora que existe)
+                stepsView.querySelector('#back-to-downloads').addEventListener('click', () => {
+                    document.body.classList.remove('is-downloading-active');
+                    stepsView.style.display = 'none';
+                    downloadContainer.style.display = 'block';
+                });
+            }
+
+            downloadActionButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Crear la GUI si no existe y mostrarla
+                    createStepsGUI();
+                    
+                    downloadContainer.style.display = 'none';
+                    stepsView.style.display = 'block';
+                    document.body.classList.add('is-downloading-active');
+                    
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                    // Iniciamos la animación de Canvas
+                    setTimeout(animatePlayIcon, 100);
+                    
+                    if (window.showNotification) {
+                        window.showNotification('¡Descarga preparada! Sigue las instrucciones.', 'success');
+                    }
+                });
+            });
 
             // Objeto con los textos de los requisitos para cada plataforma
             const requirementsData = {

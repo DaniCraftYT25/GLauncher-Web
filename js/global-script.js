@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove('is-loading');
 
     // 1. Crear el elemento de audio para el sonido de clic
-    const clickSound = new Audio('/static/sounds/click_sound.mp3');
+    const clickSound = new Audio('/sounds/click_sound.mp3');
     clickSound.preload = 'auto';
     clickSound.volume = 0.4; // Ajusta el volumen para que no sea muy invasivo
 

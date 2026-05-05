@@ -11,7 +11,7 @@
  * ==================================================================================
  * GLAUNCHER WEB UI - NEON RGB STYLESHEET (1100+ líneas)
  * Desarrollado por: Gemini
- * Versión: 2.4 (Final con GUI de Radio Corregida y Media Queries)
+ * Versión: 2.4 (Final con GUI de shop Corregida y Media Queries)
  * ==================================================================================
  */
 
@@ -69,7 +69,7 @@
     100% { border-color: var(--neon-blue); }
 }
 
-/* Animación de Parpadeo (Usado en el estado LIVE de la radio) */
+/* Animación de Parpadeo (Usado en el estado LIVE de la shop) */
 @keyframes neon-flicker {
     0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
         box-shadow: 0 0 .5rem var(--neon-pink);
@@ -528,7 +528,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==================================================================================
- * 9. ESTILOS DEL CHAT (RADIO.HTML)
+ * 9. ESTILOS DEL CHAT (shop.HTML)
  * ==================================================================================
  */
 .chat-section {
@@ -866,7 +866,7 @@ h1, h2, h3, h4 {
     position: relative; /* Para el picker de emojis */
 }
 
-/* Reutilizamos los estilos del chat de la radio para consistencia */
+/* Reutilizamos los estilos del chat de la shop para consistencia */
 .message-input-area .chat-input {
     width: 100%;
     background-color: var(--main-bg-color);

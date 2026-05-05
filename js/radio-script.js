@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    setupTabs('.radio-prog-tabs', '.programming-section');
+    setupTabs('.shop-prog-tabs', '.programming-section');
     setupTabs('.picker-tabs', '.picker-content');
 
     // --- Lógica del Chat ---
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         auth: { headers: authHeaders }
     });
 
-    const presenceChannel = pusher.subscribe('presence-chat_radio');
+    const presenceChannel = pusher.subscribe('presence-chat_shop');
 
     const updateUserCount = () => {
         userCountElement.innerHTML = `<i class="fas fa-circle"></i> ${presenceChannel.members.count} usuarios en línea`;

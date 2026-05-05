@@ -578,6 +578,11 @@
     transition: all 0.3s ease;
 }
 
+.neon-input-field:hover {
+    border-color: var(--neon-blue);
+    background: rgba(0, 255, 255, 0.05);
+}
+
 .neon-input-field:focus {
     border-color: var(--neon-pink);
     box-shadow: 0 0 10px rgba(255, 0, 255, 0.2);
@@ -591,6 +596,10 @@
     cursor: pointer;
     font-weight: bold;
     transition: all 0.3s ease;
+}
+
+.action-btn:active {
+    transform: scale(0.95);
 }
 
 .save-btn {

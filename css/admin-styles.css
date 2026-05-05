@@ -566,7 +566,7 @@ input:checked + .slider:before {
     align-items: center;
 }
 
-/* Estilo del campo de texto como en radio.html */
+/* Estilo del campo de texto como en shop.html */
 #gemini-chat-input {
     flex-grow: 1;
     padding: 10px 15px;

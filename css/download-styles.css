@@ -14,6 +14,14 @@
     }
 }
 
+@keyframes scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to { opacity: 1; transform: scale(1); }
+}
+
 @keyframes fade-out {
     from {
         opacity: 1;
@@ -40,6 +48,151 @@
     width: 100%;
     max-width: 1100px;
     text-align: center;
+}
+
+/* --- Nueva Vista de Pasos de Descarga --- */
+.download-steps-view {
+    display: none; /* Oculto por defecto */
+    max-width: 1000px;
+    width: 100%;
+    animation: scale-in 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Activación de la vista de descarga */
+body.is-downloading-active .download-container {
+    display: none;
+}
+
+body.is-downloading-active .download-steps-view {
+    display: block;
+}
+
+.steps-header {
+    margin-bottom: 50px;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* Contenedor para iconos dibujados */
+.step-icon-wrapper {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Icono 1: Archivo dibujado con CSS */
+.css-file-icon {
+    width: 45px;
+    height: 55px;
+    background: rgba(0, 255, 255, 0.05);
+    border: 2px solid var(--neon-blue);
+    position: relative;
+    border-radius: 4px;
+    box-shadow: var(--shadow-blue), inset 0 0 10px rgba(0, 255, 255, 0.2);
+}
+/* Líneas decorativas de "código" */
+.css-file-icon::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    width: 20px;
+    height: 2px;
+    background: var(--neon-blue);
+    box-shadow: 0 8px 0 var(--neon-blue), 0 16px 0 var(--neon-blue);
+    opacity: 0.5;
+}
+.css-file-icon::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    border-width: 12px;
+    border-style: solid;
+    border-color: var(--secondary-bg-color) var(--secondary-bg-color) var(--neon-blue) var(--neon-blue);
+    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Flecha de descarga interna */
+.css-file-icon-arrow {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    color: var(--neon-blue);
+    font-size: 12px;
+    animation: neon-flicker 2s infinite;
+}
+
+/* Icono 2: Usuario dibujado con CSS */
+.css-user-icon {
+    width: 25px;
+    height: 25px;
+    border: 2px solid var(--neon-pink);
+    border-radius: 50% 50% 10% 10%; /* Forma más de "casco" */
+    position: relative;
+    box-shadow: var(--shadow-pink), inset 0 0 5px var(--neon-pink);
+}
+/* El "visor" del usuario */
+.css-user-icon::before {
+    content: '';
+    position: absolute;
+    top: 30%;
+    left: 15%;
+    width: 70%;
+    height: 4px;
+    background: var(--neon-pink);
+    box-shadow: 0 0 8px var(--neon-pink);
+}
+.css-user-icon::after {
+    content: '';
+    position: absolute;
+    bottom: -28px;
+    left: -15px;
+    width: 56px;
+    height: 24px;
+    border: 2px solid var(--neon-pink);
+    border-radius: 25px 25px 5px 5px;
+    background: rgba(255, 0, 255, 0.05);
+}
+
+.step-card {
+    background: var(--secondary-bg-color);
+    padding: 40px 20px;
+    border-radius: 15px;
+    border: 2px solid var(--neon-blue);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.step-card:hover {
+    border-color: var(--neon-pink);
+    box-shadow: var(--shadow-pink);
+    transform: translateY(-5px);
+}
+
+.step-number {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--neon-pink);
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    box-shadow: var(--shadow-pink);
 }
 
 .neon-title {
@@ -212,6 +365,19 @@
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+/* Efecto de presión inmediata */
+.download-button:active {
+    transform: scale(0.95);
+}
+
+/* Estado de animación durante el inicio de descarga */
+.download-button.download-animating {
+    background-color: var(--neon-green) !important;
+    color: var(--main-bg-color) !important;
+    border-color: var(--neon-green) !important;
+    box-shadow: var(--shadow-green) !important;
 }
 
 .download-button:hover {

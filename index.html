@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="GLauncher es el launcher de Minecraft definitivo, optimizado para PvP y rendimiento. Ofrece soporte para mods, multi-cuenta, cosméticos y mucho más.">
     <link rel="canonical" href="https://glauncher.vercel.app/">
-    <title>GLauncher - Inicio</title>
+    <title>GLauncher</title>
     
     <!-- Metaetiquetas para corregir el nombre del sitio en Google (SEO) -->
     <meta property="og:site_name" content="GLauncher">
@@ -13,53 +13,62 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://glauncher.vercel.app/">
     <meta property="og:image" content="https://glauncher.vercel.app/images/glauncher%20logo.png">
+    <meta name="apple-mobile-web-app-title" content="GLauncher" />
     
     <!-- Datos Estructurados (JSON-LD) para forzar el nombre del sitio -->
+
+    <!-- WebSite Structured Data (Exclusivo para Site Name) -->
     <script type="application/ld+json">
-    [
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "GLauncher",
-        "alternateName": ["GLauncher MC", "GLauncher PvP", "GLauncher Minecraft", "GLaucher", "Launcher Minecraft", "Launcher PvP", "Launcher Minecraft PvP", "Launcher GLauncher", "Minecraft Launchers"],
-        "url": "https://glauncher.vercel.app/",
-        "description": "Sitio oficial de GLauncher, el launcher de Minecraft optimizado para PvP, mods y rendimiento extremo."
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "GLauncher",
-        "operatingSystem": "Windows, Linux, macOS, Android",
-        "applicationCategory": "GameApplication",
-        "description": "El launcher de Minecraft definitivo optimizado para PvP y rendimiento en PCs de bajos recursos.",
-        "author": {
-          "@type": "Person",
-          "name": "DaniCraftYT25"
-        }
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "¿Quién creó GLauncher?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "GLauncher fue creado y es mantenido por el desarrollador DaniCraftYT25."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "¿Con qué estructura de código se hizo el launcher?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "El launcher está desarrollado utilizando el lenguaje Java con la librería JavaFX para la interfaz gráfica, empleando una estructura modular gestionada mediante archivos de configuración sources.txt."
-            }
-          }
-        ]
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "GLauncher",
+      "alternateName": ["GLauncher MC", "GLauncher PvP", "GLauncher Minecraft", "GLaucher", "Launcher Minecraft", "Launcher PvP", "Launcher Minecraft PvP", "Launcher GLauncher", "Minecraft Launchers"],
+      "url": "https://glauncher.vercel.app/",
+      "description": "Sitio oficial de GLauncher, el launcher de Minecraft optimizado para PvP, mods y rendimiento extremo."
+    }
+    </script>
+
+    <!-- SoftwareApplication Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "GLauncher",
+      "operatingSystem": "Windows, Linux, macOS, Android",
+      "applicationCategory": "GameApplication",
+      "description": "El launcher de Minecraft definitivo optimizado para PvP y rendimiento en PCs de bajos recursos.",
+      "author": {
+        "@type": "Person",
+        "name": "DaniCraftYT25"
       }
-    ]
+    }
+    </script>
+
+    <!-- FAQPage Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Quién creó GLauncher?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GLauncher fue creado y es mantenido por el desarrollador DaniCraftYT25."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Con qué estructura de código se hizo el launcher?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "El launcher está desarrollado utilizando el lenguaje Java con la librería JavaFX para la interfaz gráfica, empleando una estructura modular gestionada mediante archivos de configuración sources.txt."
+          }
+        }
+      ]
+    }
     </script>
 
     <!-- Estilos optimizados para carga asíncrona -->
@@ -255,7 +264,7 @@
                         <i class="fas fa-rocket feature-icon"></i>
                         <h4>Máximo Rendimiento</h4>
                     </div>
-                    <div class="feature-card" data-title="GMusic y Reproductor" data-description="Escucha tu música o nuestra radio integrada directamente desde el launcher sin afectar el rendimiento del juego. ¡Control total sobre tu ambiente sonoro!" data-image="images/features/feature-music.png">
+                    <div class="feature-card" data-title="GMusic y Reproductor" data-description="Escucha tu música o nuestra shop integrada directamente desde el launcher sin afectar el rendimiento del juego. ¡Control total sobre tu ambiente sonoro!" data-image="images/features/feature-music.png">
                         <i class="fas fa-music feature-icon"></i>
                         <h4>GMusic y Reproductor</h4>
                     </div>
@@ -472,7 +481,7 @@
     <!-- Barra de Navegación Inferior (Solo para Móviles) -->
     <nav class="bottom-nav">
         <a href="index.html" class="active"><i class="fas fa-home"></i><span>Inicio</span></a>
-        <a href="radio.html"><i class="fas fa-broadcast-tower"></i><span>Radio</span></a>
+        <a href="shop.html"><i class="fa-solid fa-shop"></i><span>shop</span></a>
         <a href="noticias.html"><i class="fas fa-newspaper"></i><span>Noticias</span></a>
         <a href="download.html"><i class="fas fa-download"></i><span>Descargas</span></a>
         <a href="dashboard.html"><i class="fas fa-user-circle"></i><span>Tu Perfil</span></a>
