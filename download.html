@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>GLauncher - Centro de Descargas</title>
     <link rel="stylesheet" href="css/styles.css"> 
-    <link rel="icon" type="image/png" href="images/glauncher logo.png">
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="css/download-styles.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -18,7 +18,7 @@
 
     <header class="header">
         <div class="logo-container">
-            <img src="images/glauncher logo.png" alt="Logo de GLauncher" class="logo">
+            <img src="images/favicon.png" alt="Logo de GLauncher" class="logo">
             <img src="images/minecraft_title.png" alt="Título de GLauncher" class="logo-title-img">
         </div>
         <nav class="auth-buttons">
@@ -42,7 +42,7 @@
             <p class="subtitle-text">Selecciona tu sistema operativo para obtener la versión más estable y rápida.</p>
 
             <div class="download-info-box">
-                <h3 class="box-title text-neon-green">VERSIÓN MÁS RECIENTE: V2.0 </h3>
+                <h3 class="box-title text-neon-green">VERSIÓN MÁS RECIENTE: V1.0 </h3>
                 <p class="box-description">Esta versión incluye cambios en la GUI de Inicio, GMusic, Ajustes y Mi Cuenta. Tambien Fueron solucionado los errores que impedian la descarga de mods y de las versiones de los modloades.</p>
 
                 <div class="download-tabs">
@@ -59,8 +59,7 @@
                                 <h4>Windows</h4>
                                 <p class="card-description">Instalador recomendado para Windows 7 8 8.1 10 y 11.</p>
                                 <div class="button-group">
-                                    <a href="https://github.com/dguerraaraque-a11y/GLauncher-Web/releases/download/GLauncherV1.2/GLauncher-Setup1.2.exe" class="download-button" aria-label="Descargar para Windows 64-bit"><i class="fas fa-download"></i> 64-bit</a>
-                                    <a href="https://github.com/dguerraaraque-a11y/GLauncher-Web/releases/download/GLauncherV1.2/GLauncher-Setup1.2.exe" class="download-button" aria-label="Descargar para Windows 32-bit"><i class="fas fa-download"></i> 32-bit</a>
+                                    <a href="https://github.com/DaniCraftYT25/GLauncher-Web/releases/download/Updates/GLauncher.v1.0.Setup.exe" class="download-button" aria-label="Descargar para Windows x32/64-bit"><i class="fas fa-download"></i> x32/64-bit</a>
                                 </div>
                             </div>
                             <div class="download-card platform-macos">
@@ -190,38 +189,44 @@
                 stepsView = document.createElement('div');
                 stepsView.className = 'download-steps-view';
                 stepsView.innerHTML = `
-                    <div class="steps-header">
-                        <h2 class="neon-title"><i class="fas fa-rocket"></i> ¡TU DESCARGA HA COMENZADO!</h2>
-                        <p class="subtitle-text">Sigue estos sencillos pasos para empezar a jugar en minutos.</p>
-                    </div>
-                    <div class="steps-grid">
-                        <div class="step-card">
-                            <div class="step-number">1</div>
-                            <div class="step-icon-wrapper"><div class="css-file-icon"><i class="fas fa-arrow-down css-file-icon-arrow"></i></div></div>
-                            <h3>Ejecuta el Instalador</h3>
-                            <p class="card-description">Abre el archivo <code>.exe</code> o <code>.zip</code> que acabas de descargar.</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">2</div>
-                            <div class="step-icon-wrapper"><div class="css-user-icon"></div></div>
-                            <h3>Inicia Sesión</h3>
-                            <p class="card-description">Usa tus credenciales de GLauncher para sincronizar tus cosméticos y amigos.</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">3</div>
-                            <div class="step-icon-wrapper"><canvas id="canvas-play-icon" width="100" height="100"></canvas></div>
-                            <h3>¡Entra al Juego!</h3>
-                            <p class="card-description">Selecciona tu versión favorita, instala los mods y entra al campo de batalla.</p>
-                        </div>
-                    </div>
-                    <div style="margin-top: 40px;">
-                        <button id="back-to-downloads" class="auth-button">
-                            <i class="fas fa-arrow-left"></i> Volver a la selección
-                        </button>
-                        <p class="disclaimer-text" style="margin-top: 20px;">
-                            ¿Problemas con la descarga? <a href="#" class="neon-hover-text">Contacta a soporte</a>
-                        </p>
-                    </div>
+ <div class="steps-header">
+    <h2 class="neon-title"><i class="fas fa-rocket"></i> ¡TU DESCARGA HA COMENZADO!</h2>
+    <p class="subtitle-text">Sigue estos sencillos pasos para empezar a jugar en minutos.</p>
+</div>
+<div class="steps-grid">
+    <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-icon-wrapper">
+            <i class="fas fa-download" style="font-size: 3.5rem; color: #00ffff; filter: drop-shadow(0 0 10px #00ffff);"></i>
+        </div>
+        <h3>Ejecuta el Instalador</h3>
+        <p class="card-description">Abre el archivo <code>.exe</code> o <code>.zip</code> que acabas de descargar.</p>
+    </div>
+    <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-icon-wrapper">
+            <i class="fas fa-user" style="font-size: 3.5rem; color: #ff00ff; filter: drop-shadow(0 0 10px #ff00ff);"></i>
+        </div>
+        <h3>Inicia Sesión</h3>
+        <p class="card-description">Usa tus credenciales de GLauncher para sincronizar tus cosméticos y amigos.</p>
+    </div>
+    <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-icon-wrapper">
+            <i class="fas fa-gamepad" style="font-size: 3.5rem; color: #00ff00; filter: drop-shadow(0 0 10px #00ff00);"></i>
+        </div>
+        <h3>¡Entra al Juego!</h3>
+        <p class="card-description">Selecciona tu versión favorita, instala los mods y entra al campo de batalla.</p>
+    </div>
+</div>
+<div class="steps-actions" style="margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+    <button id="back-to-downloads" class="auth-button">
+        <i class="fas fa-arrow-left"></i> Volver a la selección
+    </button>
+    <p class="disclaimer-text">
+        ¿Problemas con la descarga? <a href="#" class="neon-hover-text">Contacta a soporte</a>
+    </p>
+</div>
                 `;
 
                 // Insertar antes del disclaimer final pero después del contenedor principal

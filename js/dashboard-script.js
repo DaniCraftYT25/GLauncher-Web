@@ -55,6 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const friendsData = await friendsResponse.json();
             const allCosmetics = await cosmeticsResponse.json();
 
+            // Verificación de seguridad: Si el registro no está completo, forzar redirección
+            if (userData.register_complete !== 'yes') {
+                window.location.href = 'register-complete.html';
+                return;
+            }
+
             initializeRealtimeNotifications(userData, friendsData);
             populateSidebar(userData);
             populateStats(userData);
@@ -98,10 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function populateStats(userData) {
-        document.getElementById('stat-gcoins').textContent = userData.gcoins.toLocaleString('es-ES');
-        document.getElementById('stat-cosmetics').textContent = userData.owned_cosmetics.length;
-        document.getElementById('stat-register-date').textContent = new Date(userData.registration_date).toLocaleDateString('es-ES');
-        // Placeholder para tiempo de juego
+        // Ahora los datos vienen directamente de las columnas de Supabase
+        document.getElementById('stat-gcoins').textContent = (userData.gcoins || 0).toLocaleString('es-ES');
+        document.getElementById('stat-cosmetics').textContent = (userData.owned_cosmetics || []).length;
+        document.getElementById('stat-register-date').textContent = new Date(userData.registration_date || Date.now()).toLocaleDateString('es-ES');
+        
+        // Convertimos los segundos de juego a horas para mostrar
         document.getElementById('stat-playtime').textContent = `${Math.floor(userData.play_time_seconds / 3600)}h`;
     }
 
