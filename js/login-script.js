@@ -82,33 +82,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.ok) {
                     // ¡Login exitoso! Guardamos el token y redirigimos
-                    localStorage.setItem('glauncher_token', data.token);
-                    
-                    // --- NUEVO: Obtener datos de la tabla 'profiles' que creaste ---
-                    if (supabaseClient) {
-                        const { data: profile, error: profileError } = await supabaseClient
-                            .from('profiles')
-                            .select('username, gcoins, friends_count, play_time_seconds, status, register_complete')
-                            .eq('username', username) // O usar data.id si el backend lo devuelve
-                            .single();
-
-                        if (profile) {
-                            localStorage.setItem('glauncher_user_profile', JSON.stringify(profile));
-                            console.log('Perfil de Supabase cargado:', profile);
-
-                            // Redirección inteligente: si no ha terminado el registro, va a completar registro
-                            const destination = profile.register_complete === 'yes' ? 'dashboard.html' : 'register-complete.html';
-                            window.showNotification('¡Inicio de sesión exitoso! Redirigiendo...', 'success');
-                            setTimeout(() => {
-                                window.location.href = destination;
-                            }, 1500);
-                            return;
-                        } else if (profileError) {
-                            console.error('Error al cargar perfil de Supabase:', profileError);
-                        }
-                    }
-
+                    localStorage.setItem('glauncher_token', data.token);                    
                     window.showNotification('¡Inicio de sesión exitoso! Redirigiendo...', 'success');
+                    // Siempre redirigimos al dashboard. El dashboard se encargará de verificar
+                    // si el registro está completo o no.
                     setTimeout(() => window.location.href = 'dashboard.html', 1500);
 
                 } else {

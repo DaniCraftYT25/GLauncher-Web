@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const userData = await userResponse.json();
+            // FIX: Asegurar que los cosméticos existan para evitar errores, aunque el backend no los envíe aún.
+            userData.owned_cosmetics = userData.owned_cosmetics || [];
+
             const friendsData = await friendsResponse.json();
             const allCosmetics = await cosmeticsResponse.json();
 
@@ -82,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function populateSidebar(userData) {
-        document.getElementById('nav-avatar').src = userData.avatar_url || DEFAULT_AVATAR_URL;
+        document.getElementById('nav-avatar').src = userData.profile_picture_url || DEFAULT_AVATAR_URL;
         document.getElementById('nav-username').textContent = userData.username;
         document.getElementById('user-role').textContent = userData.role;
         document.getElementById('user-role-container').style.display = 'block';
@@ -106,11 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function populateStats(userData) {
         // Ahora los datos vienen directamente de las columnas de Supabase
         document.getElementById('stat-gcoins').textContent = (userData.gcoins || 0).toLocaleString('es-ES');
-        document.getElementById('stat-cosmetics').textContent = (userData.owned_cosmetics || []).length;
-        document.getElementById('stat-register-date').textContent = new Date(userData.registration_date || Date.now()).toLocaleDateString('es-ES');
+        document.getElementById('stat-cosmetics').textContent = userData.owned_cosmetics.length;
+        document.getElementById('stat-register-date').textContent = new Date(userData.created_at || Date.now()).toLocaleDateString('es-ES');
         
         // Convertimos los segundos de juego a horas para mostrar
-        document.getElementById('stat-playtime').textContent = `${Math.floor(userData.play_time_seconds / 3600)}h`;
+        document.getElementById('stat-playtime').textContent = `${Math.floor((userData.play_time_seconds || 0) / 3600)}h`;
     }
 
     function renderFriendsList(friendsData) {
