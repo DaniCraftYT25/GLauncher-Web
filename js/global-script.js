@@ -5,6 +5,27 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ========================================================
+    // A. LÓGICA DE CAPTURA DE TOKEN DESDE URL (PARA OAUTH)
+    // ========================================================
+    // Esta sección se encarga de manejar los tokens que llegan en la URL
+    // después de un inicio de sesión social (Google, Microsoft, etc.).
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get('token');
+
+    if (tokenFromUrl) {
+        // 1. Guardar el token en el almacenamiento local para usarlo en las peticiones
+        localStorage.setItem('glauncher_token', tokenFromUrl);
+
+        // 2. Limpiar la URL para que el token no quede visible ni se reutilice al recargar
+        // Usamos history.replaceState para no recargar la página y no añadir al historial de navegación.
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+        
+        // 3. Opcional: mostrar una notificación de éxito
+        if (window.showNotification) window.showNotification('Autenticación exitosa.', 'success');
+    }
+
+    // ========================================================
     // 0. LÓGICA DEL BANNER DE COOKIES
     // ========================================================
     const cookieBanner = document.getElementById('cookie-banner');
