@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const form = document.getElementById('complete-registration-form');
     const profilePictureInput = document.getElementById('profile-picture-input');
+    const usernameInput = document.getElementById('username');
     const profilePreview = document.getElementById('profile-preview');
     
     const steps = Array.from(document.querySelectorAll('.form-step'));
@@ -29,6 +30,48 @@ document.addEventListener('DOMContentLoaded', function () {
     const nextButtons = document.querySelectorAll('.next-step-btn');
     const prevButtons = document.querySelectorAll('.prev-step-btn');
     let currentStep = 0;
+    let isUsernameAvailable = false; // Variable para controlar la disponibilidad
+
+    // --- Lógica de Validación de Nombre de Usuario en Tiempo Real ---
+    async function checkUsernameAvailability() {
+        const username = usernameInput.value;
+        const errorElement = document.getElementById('username-error');
+        errorElement.textContent = ''; // Limpiar error previo
+        isUsernameAvailable = false;
+
+        // Validación de formato y longitud
+        if (username.length > 16) {
+            errorElement.textContent = 'El nombre de usuario no puede tener más de 16 caracteres.';
+            return;
+        }
+        if (/\s/.test(username)) {
+            errorElement.textContent = 'El nombre de usuario no puede contener espacios.';
+            return;
+        }
+        if (username.length < 3) {
+            errorElement.textContent = 'El nombre de usuario debe tener al menos 3 caracteres.';
+            return;
+        }
+
+        try {
+            // Este endpoint debes crearlo en tu backend
+            const response = await fetch(`${BACKEND_URL}/api/auth/check-username`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: username })
+            });
+            const data = await response.json();
+            if (!data.available) {
+                errorElement.textContent = 'El nombre de usuario ya existe, selecciona otro.';
+            } else {
+                isUsernameAvailable = true;
+            }
+        } catch (error) {
+            errorElement.textContent = 'No se pudo verificar el usuario. Intenta de nuevo.';
+        }
+    }
+
+    usernameInput.addEventListener('blur', checkUsernameAvailability); // Se activa al salir del campo
 
     function updateStepView() {
         steps.forEach((step, index) => {
@@ -51,6 +94,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.showNotification('Debes aceptar los Términos y Condiciones para continuar.', 'warning');
                 return false;
             }
+        }
+        // Validación específica para el paso del nombre de usuario
+        if (stepIndex === 0 && !isUsernameAvailable) {
+            window.showNotification('El nombre de usuario no es válido o ya está en uso.', 'error');
+            return false;
         }
         return true;
     }
