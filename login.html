@@ -38,6 +38,13 @@
         .suggestion-item:hover {
             background: rgba(0, 243, 255, 0.15);
         }
+        /* Estilos para centrar el contenido del paso del código */
+        #code-entry-section {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
         .suggestion-avatar {
             width: 24px;
             height: 24px;
@@ -98,20 +105,22 @@
                     </button>
                 </div>
                 
-                <div id="code-entry-section" style="display: none;">
-                    <p class="code-flow-info">
-                        <i class="fas fa-shield-alt text-neon-pink"></i> Por tu seguridad, ingresa el código que creaste al registrarte.
-                    </p>
-                    <div class="form-group">
-                        <input type="text" id="security-code" name="code" class="neon-input-field" placeholder=" " maxlength="6" autocomplete="off">
-                        <label for="security-code"><i class="fas fa-keypad"></i> Código de Seguridad</label>
+                <div id="code-entry-section">
+                    <div class="code-entry-content">
+                        <p class="code-flow-info">
+                            <i class="fas fa-shield-alt text-neon-pink"></i> Por tu seguridad, ingresa el código que creaste al registrarte.
+                        </p>
+                        <div class="form-group">
+                            <input type="text" id="security-code" name="code" class="neon-input-field" placeholder=" " maxlength="6" autocomplete="off">
+                            <label for="security-code"><i class="fas fa-keypad"></i> Código de Seguridad</label>
+                        </div>
+                        
+                        <button type="button" id="verify-code-button" class="auth-button-action" style="background-color: var(--neon-blue); box-shadow: var(--shadow-blue);">
+                            Verificar y Acceder
+                        </button>
+                        
+                        <a href="#" id="go-back-login" class="neon-hover-text" style="display: block; margin-top: 15px;">Volver</a>
                     </div>
-                    
-                    <button type="button" id="verify-code-button" class="auth-button-action" style="background-color: var(--neon-blue); box-shadow: var(--shadow-blue);">
-                        Verificar y Acceder
-                    </button>
-                    
-                    <a href="#" id="go-back-login" class="neon-hover-text" style="display: block; margin-top: 15px;">Volver</a>
                 </div>
 
             </form>

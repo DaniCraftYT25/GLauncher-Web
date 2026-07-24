@@ -1,21 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
     const BACKEND_URL = 'https://glauncher-api.onrender.com';
     const NOTIFICATION_DURATION = 2000; // 2 segundos para las notificaciones
-
-    // Verificar si el token viene en la URL (desde la redirección del backend)
-    const urlParams = new URLSearchParams(window.location.search);
-    const tokenFromUrl = urlParams.get('token');
-    if (tokenFromUrl) {
-        localStorage.setItem('social_login_token', tokenFromUrl);
-        // Limpiar la URL para que no se vea el token feo
-        window.history.replaceState({}, document.title, window.location.pathname);
-    }
-
-    const tempToken = localStorage.getItem('social_login_token');
+    
+    // El script global-script.js ya se encarga de capturar el token de la URL y guardarlo.
+    // Aquí solo necesitamos leerlo desde el localStorage.
+    const tempToken = localStorage.getItem('glauncher_token');
 
     // Si no hay token, el usuario no debería estar aquí. Redirigir.
     if (!tempToken) {
-        console.error('No social login token found. Redirecting to login.');
         window.location.href = 'login.html?error=session_expired';
         return;
     }
@@ -161,8 +153,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 throw new Error(data.message || 'Ocurrió un error al completar el registro.');
             }
 
-            // Limpiar el token temporal y guardar el token permanente
-            localStorage.removeItem('social_login_token');
+            // El backend nos da un nuevo token con la información actualizada (username, etc.)
+            // Reemplazamos el token antiguo por el nuevo.
             localStorage.setItem('glauncher_token', data.token);
 
             window.showNotification(data.message, 'success');

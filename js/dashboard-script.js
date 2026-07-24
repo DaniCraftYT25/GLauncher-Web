@@ -863,5 +863,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    loadUserData();
+    loadUserData(); // Iniciar la carga de datos del usuario al entrar al dashboard
 });
