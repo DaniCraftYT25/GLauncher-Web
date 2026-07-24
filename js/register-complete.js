@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const BACKEND_URL = 'https://glauncher-api.onrender.com';
+    const NOTIFICATION_DURATION = 2000; // 2 segundos para las notificaciones
 
     // Verificar si el token viene en la URL (desde la redirección del backend)
     const urlParams = new URLSearchParams(window.location.search);
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Si no hay token, el usuario no debería estar aquí. Redirigir.
     if (!tempToken) {
         console.error('No social login token found. Redirecting to login.');
-        window.location.href = '/login.html?error=session_expired';
+        window.location.href = 'login.html?error=session_expired';
         return;
     }
 
@@ -43,11 +44,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const inputs = step.querySelectorAll('input[required]');
         for (const input of inputs) {
             if (!input.value && input.type !== 'checkbox') {
-                alert(`Por favor, completa el campo "${input.labels[0].innerText}".`);
+                window.showNotification(`Por favor, completa el campo "${input.labels[0].innerText}".`, 'warning');
                 return false;
             }
             if (input.type === 'checkbox' && !input.checked) {
-                alert('Debes aceptar los Términos y Condiciones para continuar.');
+                window.showNotification('Debes aceptar los Términos y Condiciones para continuar.', 'warning');
                 return false;
             }
         }
@@ -88,11 +89,14 @@ document.addEventListener('DOMContentLoaded', function () {
         submitButton.disabled = true;
         submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Finalizando...';
 
+        // El backend espera 'security_code', no 'phone_number'.
+        // Asumimos que el campo de contraseña puede funcionar como código de seguridad si el usuario lo desea,
+        // o que se debería añadir un campo para ello. Por ahora, enviamos la contraseña como código de seguridad.
         const formData = new FormData();
         formData.append('username', document.getElementById('username').value);
         formData.append('password', document.getElementById('password').value);
-        formData.append('phone_number', document.getElementById('phone-number').value);
-        
+        formData.append('security_code', document.getElementById('password').value); // Ajuste clave: enviar lo que el backend espera.
+
         if (profilePictureInput.files[0]) {
             formData.append('profile_picture', profilePictureInput.files[0]);
         }
@@ -116,11 +120,13 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.removeItem('social_login_token');
             localStorage.setItem('glauncher_token', data.token);
 
-            alert(data.message);
-            window.location.href = 'dashboard.html';
+            window.showNotification(data.message, 'success');
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, NOTIFICATION_DURATION);
 
         } catch (error) {
-            alert(`Error: ${error.message}`);
+            window.showNotification(`Error: ${error.message}`, 'error');
         } finally {
             submitButton.disabled = false;
             submitButton.innerHTML = '<i class="fas fa-rocket"></i> Finalizar Registro';
