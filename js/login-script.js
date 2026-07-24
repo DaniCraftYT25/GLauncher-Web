@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     // Si las credenciales son correctas, pasamos al segundo paso
                     credentialsSection.style.display = 'none';
-                    codeEntrySection.style.display = 'block';
+                    codeEntrySection.style.display = 'flex'; // Usar flex para que se muestre correctamente
                     securityCodeInput.focus(); // Poner el foco en el campo del código
                     window.showNotification('Credenciales correctas. Ingresa tu código de seguridad.', 'info');
                 } else {

@@ -89,13 +89,10 @@ document.addEventListener('DOMContentLoaded', function () {
         submitButton.disabled = true;
         submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Finalizando...';
 
-        // El backend espera 'security_code', no 'phone_number'.
-        // Asumimos que el campo de contraseña puede funcionar como código de seguridad si el usuario lo desea,
-        // o que se debería añadir un campo para ello. Por ahora, enviamos la contraseña como código de seguridad.
         const formData = new FormData();
         formData.append('username', document.getElementById('username').value);
         formData.append('password', document.getElementById('password').value);
-        formData.append('security_code', document.getElementById('password').value); // Ajuste clave: enviar lo que el backend espera.
+        formData.append('security_code', document.getElementById('security-code').value); // Ajuste clave: enviar el código de seguridad del nuevo campo.
 
         if (profilePictureInput.files[0]) {
             formData.append('profile_picture', profilePictureInput.files[0]);

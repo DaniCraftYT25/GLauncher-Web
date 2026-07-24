@@ -76,11 +76,11 @@
 
                 <!-- Paso 3: Seguridad Adicional -->
                 <div class="form-step" id="step-3">
-                    <h3 class="step-title">Seguridad Adicional (Opcional)</h3>
+                    <h3 class="step-title">Seguridad Adicional</h3>
                     <div class="form-group">
-                        <input type="tel" id="phone-number" name="phone_number" class="neon-input-field" placeholder=" ">
-                        <label for="phone-number"><i class="fas fa-mobile-alt"></i> Número de Teléfono</label>
-                        <small class="form-hint">Útil para futuras opciones de recuperación de cuenta.</small>
+                        <input type="text" id="security-code" name="security_code" class="neon-input-field" placeholder=" " required maxlength="6" pattern="\d{6}">
+                        <label for="security-code"><i class="fas fa-keypad"></i> Código de Seguridad (6 dígitos)</label>
+                        <small class="form-hint">Necesario para iniciar sesión y recuperar tu cuenta.</small>
                     </div>
                     <div class="step-navigation">
                         <button type="button" class="auth-button-action prev-step-btn"><i class="fas fa-arrow-left"></i> Anterior</button>
