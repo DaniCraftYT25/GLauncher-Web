@@ -592,6 +592,11 @@
         padding: 30px;
         margin-bottom: 20px; /* Espacio si se apila arriba */
     }
+
+    /* Ocultar el panel de visualización en móviles, ya que el hover no es práctico */
+    .feature-display-panel {
+        display: none;
+    }
 }
 
 /* --- Móviles Pequeños (hasta 576px) --- */
@@ -628,6 +633,48 @@
         flex-direction: column; /* Apila el avatar y el nombre */
         align-items: center;
         text-align: center;
+    }
+
+    /* --- Estilos responsivos para la tabla comparativa --- */
+    .comparison-table thead {
+        display: none; /* Ocultar la cabecera original en móviles */
+    }
+
+    .comparison-table, .comparison-table tbody, .comparison-table tr, .comparison-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .comparison-table tr {
+        margin-bottom: 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .comparison-table td {
+        text-align: right; /* Alinea el contenido a la derecha */
+        padding-left: 50%; /* Deja espacio para la etiqueta */
+        position: relative;
+        border-bottom: 1px solid var(--main-bg-color);
+    }
+
+    .comparison-table td:before {
+        content: attr(data-label); /* Usa el data-label como pseudo-elemento */
+        position: absolute;
+        left: 15px;
+        width: calc(50% - 30px);
+        text-align: left;
+        font-weight: bold;
+        color: var(--neon-blue);
+    }
+
+    /* El primer td de cada fila es el título de la característica, lo estilizamos como cabecera */
+    .comparison-table td:first-child {
+        background-color: rgba(0, 243, 255, 0.1);
+        font-weight: bold;
+        text-align: center;
+        padding-left: 15px; /* Reset padding */
     }
 }
 

@@ -5,26 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('glauncher_token');
     let skinViewer; // Instancia global para el visor 3D
 
-    // --- FLOATING NAV LOGIC ---
-    const navItems = document.querySelectorAll('.floating-nav-item');
-    const contentSections = document.querySelectorAll('.content-section');
-    
-    navItems.forEach(item => {
-        item.addEventListener('click', e => {
-            e.preventDefault();
-            if (item.id === 'admin-nav-button') {
-                window.location.href = '/admin.html';
-                return;
-            }
-            const targetId = item.dataset.target;
-            navItems.forEach(nav => nav.classList.remove('active'));
-            item.classList.add('active');
-            contentSections.forEach(section => {
-                section.classList.remove('active');
-                if (section.id === targetId) section.classList.add('active');
-            });
-        });
-    });
+    // --- INICIALIZAR NAVEGACIÓN POR PESTAÑAS (usando la nueva función global) ---
+    window.initializeTabNavigation('.floating-nav-item', '.content-section');
+    // La lógica específica del botón de admin se puede manejar por separado si es necesario.
+    document.getElementById('admin-nav-button')?.addEventListener('click', () => { window.location.href = '/admin.html'; });
 
     // --- AUTH CHECK ---
     if (!token) {
@@ -254,15 +238,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const filteredUsers = allUsers.filter(user => user.username.toLowerCase().includes(query) && user.id !== currentUserId);
             renderSearchResults(filteredUsers, friendsData);
-        });
-    }
-
-    function setupFriendSearch(allUsers) {
-        const searchInput = document.getElementById('friend-search-input');
-        searchInput.addEventListener('keyup', () => {
-            const query = searchInput.value.toLowerCase();
-            const filteredUsers = allUsers.filter(user => user.username.toLowerCase().includes(query));
-            renderFriendsList(filteredUsers);
         });
     }
 
@@ -776,7 +751,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Poblar lista de amigos con datos de ejemplo
         const demoUsers = [
-            { username: 'DaniCraftYT25', role: 'Pico de Netherite', avatar_url: 'https://crafatar.com/avatars/606e2ff0-ed77-4842-9d6c-e1d3321c7838?size=100&overlay' },
+            { username: '◈𝐙𝐘𝐑𝐎𝐕𝐄𝐍𝐓◈', role: 'Pico de Netherite', avatar_url: 'https://crafatar.com/avatars/606e2ff0-ed77-4842-9d6c-e1d3321c7838?size=100&overlay' },
             { username: 'UsuarioAlfa', role: 'Pico de Diamante', avatar_url: null },
             { username: 'JugadorBeta', role: 'Pico de Oro', avatar_url: null }
         ];
